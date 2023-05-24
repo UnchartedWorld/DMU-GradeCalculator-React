@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/UnchartedWorld/DMU-GradeCalculator-React/static/css/main.073c9b0a.css",
+    "main.js": "/UnchartedWorld/DMU-GradeCalculator-React/static/js/main.3b1cad42.js",
+    "static/js/787.958006d7.chunk.js": "/UnchartedWorld/DMU-GradeCalculator-React/static/js/787.958006d7.chunk.js",
+    "index.html": "/UnchartedWorld/DMU-GradeCalculator-React/index.html",
+    "main.073c9b0a.css.map": "/UnchartedWorld/DMU-GradeCalculator-React/static/css/main.073c9b0a.css.map",
+    "main.3b1cad42.js.map": "/UnchartedWorld/DMU-GradeCalculator-React/static/js/main.3b1cad42.js.map",
+    "787.958006d7.chunk.js.map": "/UnchartedWorld/DMU-GradeCalculator-React/static/js/787.958006d7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.3b1cad42.js"
+  ]
+}
