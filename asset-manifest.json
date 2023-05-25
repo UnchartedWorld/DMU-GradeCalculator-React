@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/DMU-GradeCalculator-React/static/css/main.073c9b0a.css",
-    "main.js": "/DMU-GradeCalculator-React/static/js/main.e3744e32.js",
+    "main.js": "/DMU-GradeCalculator-React/static/js/main.2780b116.js",
     "static/js/787.958006d7.chunk.js": "/DMU-GradeCalculator-React/static/js/787.958006d7.chunk.js",
     "index.html": "/DMU-GradeCalculator-React/index.html",
     "main.073c9b0a.css.map": "/DMU-GradeCalculator-React/static/css/main.073c9b0a.css.map",
-    "main.e3744e32.js.map": "/DMU-GradeCalculator-React/static/js/main.e3744e32.js.map",
+    "main.2780b116.js.map": "/DMU-GradeCalculator-React/static/js/main.2780b116.js.map",
     "787.958006d7.chunk.js.map": "/DMU-GradeCalculator-React/static/js/787.958006d7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.e3744e32.js"
+    "static/js/main.2780b116.js"
   ]
 }
