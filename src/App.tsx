@@ -1,10 +1,10 @@
 import "./App.css";
-import { MantineProvider, Button } from "@mantine/core";
+import { MantineProvider, Text } from "@mantine/core";
 
 function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <Button>Mantine button</Button>
+      <Text>Mantine test text</Text>
     </MantineProvider>
   );
 }
