@@ -1,4 +1,5 @@
 import { Button, Container, Text, Title } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -20,7 +21,14 @@ export default function Home() {
         implement alternate grading.
       </Text>
 
-      <Button mt={"1rem"}>Get started</Button>
+      <Button mt={"1rem"}>
+        <Link
+          style={{ textDecoration: "none", color: "inherit" }}
+          to={"/calculator"}
+        >
+          Get started!
+        </Link>
+      </Button>
     </Container>
   );
 }
