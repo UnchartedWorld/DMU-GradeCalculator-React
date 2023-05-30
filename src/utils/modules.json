@@ -1,0 +1,374 @@
+{
+  "modules": [
+    {
+      "id": 1,
+      "name": "Data Structures & Algorithms",
+      "termOfModule": 1,
+      "yearOfModule": 2,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 0.6,
+          "totalMarks": 100
+        },
+        {
+          "name": "Phase Test",
+          "markWeight": 0.4,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 2,
+      "name": "Web Application Development",
+      "termOfModule": 1,
+      "yearOfModule": 2,
+      "markScheme": [
+        {
+          "type": "Phase Test",
+          "markWeight": 1,
+          "totalMarks": 200
+        }
+      ]
+    },
+
+    {
+      "id": 3,
+      "name": "Object Oriented Design",
+      "termOfModule": 1,
+      "yearOfModule": 2,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 4,
+      "name": "Software & Security Management",
+      "termOfModule": 1,
+      "yearOfModule": 2,
+      "markScheme": [
+        {
+          "type": "Phase Test",
+          "markWeight": 1,
+          "totalMarks": 200
+        }
+      ]
+    },
+
+    {
+      "id": 5,
+      "name": "Concurrent & Parallel Algorithms",
+      "termOfModule": 2,
+      "yearOfModule": 2,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 0.4,
+          "totalMarks": 100
+        },
+        {
+          "type": "Phase Test",
+          "markWeight": 0.6,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 6,
+      "name": "Agile Team Development",
+      "termOfModule": 2,
+      "yearOfModule": 2,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 7,
+      "name": "Object Oriented Development",
+      "termOfModule": 2,
+      "yearOfModule": 2,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 8,
+      "name": "Introduction to Research",
+      "termOfModule": 2,
+      "yearOfModule": 2,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 9,
+      "name": "Multi-Service Networks 1",
+      "termOfModule": 1,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Phase Test",
+          "markWeight": 0.5,
+          "totalMarks": 100
+        },
+        {
+          "type": "Phase Test",
+          "markWeight": 0.5,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 10,
+      "name": "Secure Web Application Development",
+      "termOfModule": 1,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Phase Test",
+          "markWeight": 0.5,
+          "totalMarks": 100
+        },
+        {
+          "type": "Coursework",
+          "markWeight": 0.5,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 11,
+      "name": "Interaction Design",
+      "termOfModule": 1,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 0.1,
+          "totalMarks": 100
+        },
+        {
+          "type": "Phase Test",
+          "markWeight": 0.9,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 12,
+      "name": "Data Mining",
+      "termOfModule": 1,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 13,
+      "name": "Mobile Application Development",
+      "termOfModule": 1,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 14,
+      "name": "Fuzzy Logic & Knowledge Systems",
+      "termOfModule": 1,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 15,
+      "name": "Computer Ethics & Privacy",
+      "termOfModule": 1,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 16,
+      "name": "Systems Building: Methods",
+      "termOfModule": 1,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 17,
+      "name": "Database Management and Programming",
+      "termOfModule": 2,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 0.5,
+          "totalMarks": 100
+        },
+        {
+          "type": "Phase Test",
+          "markWeight": 0.5,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 18,
+      "name": "Big Data & Business Models",
+      "termOfModule": 2,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Phase Test",
+          "markWeight": 0.3,
+          "totalMarks": 100
+        },
+        {
+          "type": "Coursework",
+          "markWeight": 0.7,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 19,
+      "name": "Web Application Penetration Testing",
+      "termOfModule": 2,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 20,
+      "name": "Multi-Service Networks 2",
+      "termOfModule": 2,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 21,
+      "name": "IT Services Practice",
+      "termOfModule": 2,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 22,
+      "name": "Front-End Web Development",
+      "termOfModule": 2,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 23,
+      "name": "Functional Software Development",
+      "termOfModule": 2,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    },
+
+    {
+      "id": 24,
+      "name": "Rigorous Systems",
+      "termOfModule": 2,
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "Coursework",
+          "markWeight": 1,
+          "totalMarks": 100
+        }
+      ]
+    }
+  ]
+}

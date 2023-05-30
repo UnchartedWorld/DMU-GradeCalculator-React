@@ -1,0 +1,29 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "name": "Computer Science",
+      "moduleIDs": [1, 16]
+    },
+    {
+      "id": 2,
+      "name": "Software Development",
+      "moduleIDs": [1]
+    },
+    {
+      "id": 3,
+      "name": "Games Production",
+      "moduleIDs": [1]
+    },
+    {
+      "id": 4,
+      "name": "Digital Forensics",
+      "moduleIDs": [1]
+    },
+    {
+      "id": 5,
+      "name": "Cyber Security",
+      "moduleIDs": [1]
+    }
+  ]
+}
