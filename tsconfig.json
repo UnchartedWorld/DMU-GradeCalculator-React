@@ -1,26 +1,54 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+
+    // Enable strict type checking
+    "strict": true,
+
+    // Allow the use of default imports with libraries that have default exports
+    "esModuleInterop": true,
+
+    // Skip type checking of declaration files from dependencies
+    "skipLibCheck": true,
+
+    // Enforce consistent file name casing
+    "forceConsistentCasingInFileNames": true,
+
+    // Flag functions that don't have a return statement on all code paths
+    "noImplicitReturns": true,
+
+    // Warn about unused local variables
+    "noUnusedLocals": true,
+
+    // Warn about unused function parameters
+    "noUnusedParameters": true,
+
+    // Enable strict null checks
+    "strictNullChecks": true,
+
+    // Allow importing JSON files as modules
+    "resolveJsonModule": true,
+
+    // Allows default imports from modules with no default export
+    "allowSyntheticDefaultImports": true,
+
+    // Generate source map files for easier debugging
+    "sourceMap": true,
+
+    // Generate corresponding .d.ts declaration files
+    "declaration": true
   },
-  "include": [
-    "src"
-  ]
+  // Specify the files and directories to include in compilation
+  "include": ["src"],
+
+  // Specify the files and directories to exclude from compilation
+  "exclude": ["node_modules", "dist"]
 }
