@@ -10,6 +10,7 @@ import Home from "./routes/Home";
 import About from "./routes/About";
 import { useColorScheme } from "@mantine/hooks";
 import { useState } from "react";
+import Calculator from "./routes/Calculator";
 
 function App() {
   const preferredColorScheme = useColorScheme();
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/calculator" element={<Calculator />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </MantineProvider>
