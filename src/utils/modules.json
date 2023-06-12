@@ -12,7 +12,7 @@
           "totalMarks": 100
         },
         {
-          "name": "Phase Test",
+          "type": "Phase Test",
           "markWeight": 0.4,
           "totalMarks": 100
         }
