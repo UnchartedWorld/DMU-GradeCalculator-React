@@ -1,13 +1,16 @@
 import { useState } from "react";
 import courses from "../utils/courses.json";
 import modules from "../utils/modules.json";
-import { Button, MultiSelect, Select, Stack, Title } from "@mantine/core";
+import { Alert, Button, MultiSelect, Select, Stack, Title } from "@mantine/core";
+import { IconAlertCircle } from "@tabler/icons-react";
 
 export default function CalculatorForm({ formData }: any) {
   const [selectedYear, setSelectedYear] = useState<string>("");
   const [selectedCourse, setSelectedCourse] = useState<string>("");
   const [selectedTerm1Modules, setSelectedTerm1Modules] = useState<string[]>([]);
   const [selectedTerm2Modules, setSelectedTerm2Modules] = useState<string[]>([]);
+  const [optionsBooleanStatus, setOptionsBooleanStatus] = useState<boolean>(false);
+  const [missingFieldsNotif, setMissingFieldsNotif] = useState<boolean>(false);
 
   const modulesData = modules.modules;
   const coursesData = courses.courses;
@@ -37,7 +40,18 @@ export default function CalculatorForm({ formData }: any) {
     const term1Modules: string[] = selectedTerm1Modules;
     const term2Modules: string[] = selectedTerm2Modules;
 
-    formData(year, course, term1Modules, term2Modules);
+
+    if (year && course) {
+      formData(year, course);
+      setOptionsBooleanStatus(true);
+      setMissingFieldsNotif(false);
+    } else if (year && course && term1Modules && term2Modules) {
+      formData(year, course, term1Modules, term2Modules);
+      setOptionsBooleanStatus(true);
+      setMissingFieldsNotif(false);
+    } else {
+      setMissingFieldsNotif(true);
+    }
   }
 
   function handleYearSelection(value: string | null) {
@@ -66,9 +80,16 @@ export default function CalculatorForm({ formData }: any) {
 
   return (
     <section>
+      {missingFieldsNotif && (
+        <Alert 
+          title="Missing field(s)!" 
+          icon={<IconAlertCircle size={"1.1rem"} />}
+          color="red">
+          It appears you failed to fill in all required fields. Make sure to do so!  
+        </Alert>
+        )}
       <Stack spacing={"sm"}>
-        <Title order={2}>Calculator form</Title>
-
+        <Title order={2}>Calculator form</Title>        
         <Select
           data={courseSelectionOptions}
           label="Select your course."
@@ -77,6 +98,7 @@ export default function CalculatorForm({ formData }: any) {
           searchable
           nothingFound={"Didn't find anything :("}
           required
+          disabled={optionsBooleanStatus}
         />
 
         <Select
@@ -85,6 +107,7 @@ export default function CalculatorForm({ formData }: any) {
           placeholder="Years? Too many years if you ask me"
           onChange={(value) => handleYearSelection(value)}
           required
+          disabled={optionsBooleanStatus}
         />
 
         {selectedYear === "Year 3" && (
@@ -98,6 +121,7 @@ export default function CalculatorForm({ formData }: any) {
               nothingFound={"Didn't find anything. :("}
               maxSelectedValues={3}
               required
+              disabled={optionsBooleanStatus}
             />
 
             <MultiSelect
@@ -109,10 +133,11 @@ export default function CalculatorForm({ formData }: any) {
               onChange={(values) => handleTerm2ModuleSelections(values)}
               maxSelectedValues={3}
               required
+              disabled={optionsBooleanStatus}
             />
           </Stack>
         )}
-        <Button onClick={handleFormData}>Submit data</Button>
+        <Button onClick={handleFormData} disabled={optionsBooleanStatus}>Submit data</Button>
       </Stack>
     </section>
   );
