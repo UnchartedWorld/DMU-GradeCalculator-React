@@ -14,6 +14,7 @@ export default function CalculatorForm({ formData }: any) {
 
   const modulesData = modules.modules;
   const coursesData = courses.courses;
+  const developmentProject = modulesData.filter((module) => module.name === "Development Project");
 
   const courseSelectionOptions = coursesData.map((course) => ({
     value: String(course.id),
@@ -40,12 +41,19 @@ export default function CalculatorForm({ formData }: any) {
     const term1Modules: string[] = selectedTerm1Modules;
     const term2Modules: string[] = selectedTerm2Modules;
 
-    if (year && course && !term1Modules && !term2Modules) {
+    if (year === "Year 2" && course) {
       formData(year, course);
       setOptionsBooleanStatus(true);
       setMissingFieldsNotif(false);
-    } else if (year && course && term1Modules && term2Modules) {
-      formData(year, course, term1Modules, term2Modules);
+    } else if (
+      year === "Year 3" &&
+      course &&
+      term1Modules &&
+      term2Modules &&
+      term1Modules.length &&
+      term2Modules.length
+    ) {
+      formData(year, course, term1Modules, term2Modules, developmentProject);
       setOptionsBooleanStatus(true);
       setMissingFieldsNotif(false);
     } else {
