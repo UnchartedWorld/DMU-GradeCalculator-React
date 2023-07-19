@@ -10,7 +10,7 @@ interface Marks {
 interface Modules {
   id: number;
   name: string;
-  termOfModule: number;
+  termOfModule?: number;
   yearOfModule: number;
   markScheme: {
     type: string;
@@ -19,19 +19,23 @@ interface Modules {
   }[];
 }
 
-export default function Year3Calc({ selectedTerm1Modules, selectedTerm2Modules }: any) {
+export default function Year3Calc({
+  selectedTerm1Modules,
+  selectedTerm2Modules,
+  developmentProject,
+  onCorrectedMarkChange,
+}: any) {
   const [marks, setMarks] = useState<Marks>({});
   const [modulePercentages, setModulePercentages] = useState<string[]>([]);
 
   const moduleData = modules.modules;
+  const receivedDevProject: Modules[] = developmentProject;
   const term1Filtered: Modules[] = moduleData.filter((mod) =>
     selectedTerm1Modules.includes(String(mod.id))
   );
   const term2Filtered: Modules[] = moduleData.filter((mod) =>
     selectedTerm2Modules.includes(String(mod.id))
   );
-
-  console.log("Term 1 mods: ", term1Filtered);
 
   /**
    * Handles the changing of the grade input field, storing it in a useState variable called marks.
@@ -79,7 +83,18 @@ export default function Year3Calc({ selectedTerm1Modules, selectedTerm2Modules }
 
     if (currentModuleMarks && currentMarkScheme) {
       const weightedAverage = currentMarkScheme.reduce(
-        (accum, { markWeight }, index) => accum + (currentModuleMarks[index] || 0) * markWeight,
+        (accum, { markWeight, type, totalMarks }, index) => {
+          if (type === "Meetings") {
+            const input = (currentModuleMarks[index] || 0) * 10;
+            return accum + input * markWeight;
+          } else if (totalMarks === 200) {
+            const input = currentModuleMarks[index] || 0;
+            return accum + (input / 2) * markWeight;
+          } else {
+            const input = currentModuleMarks[index] || 0;
+            return accum + input * markWeight;
+          }
+        },
         0
       );
 
@@ -88,7 +103,12 @@ export default function Year3Calc({ selectedTerm1Modules, selectedTerm2Modules }
     return "";
   }
 
-  function calculateCorrectedMark(arrayOfPercentages: string[]) {
+  /**
+   * Handles the calculation and returning of a corrected mark.
+   * @param arrayOfPercentages - An array of unmodified percentages from user inputs.
+   * @returns {string} Either a number representing the corrected mark, or a string returning N/A.
+   */
+  function calculateCorrectedMark(arrayOfPercentages: string[]): string {
     if (arrayOfPercentages.length === 8) {
       const percentagesToNum: number[] = arrayOfPercentages.map(Number);
       const sortedPercentages: number[] = [...percentagesToNum].sort((a, b) => a - b);
@@ -98,6 +118,7 @@ export default function Year3Calc({ selectedTerm1Modules, selectedTerm2Modules }
       const sum: number = sortedPercentages.reduce((total, values) => total + values, 0);
       const mean: number = sum / sortedPercentages.length;
 
+      onCorrectedMarkChange(Math.min(mean, 100).toFixed(2));
       return Math.min(mean, 100).toFixed(2);
     } else {
       return "N/A";
@@ -151,6 +172,37 @@ export default function Year3Calc({ selectedTerm1Modules, selectedTerm2Modules }
           <Text size={"md"}>Overall percentage: {calculateModulePercentage(id)}%</Text>
         </React.Fragment>
       ))}
+      <Title order={3} pt={"xs"}>
+        Development Project:{" "}
+      </Title>
+
+      {receivedDevProject.map(({ id, markScheme }) => (
+        <React.Fragment key={id}>
+          <Group grow>
+            {markScheme.map((markOptions, testIndex) => (
+              <NumberInput
+                label={markOptions.type}
+                min={0}
+                max={markOptions.totalMarks}
+                value={marks[id] ? marks[id][testIndex] || "" : ""}
+                onChange={handleGradeChange(id, testIndex)}
+                description={
+                  markOptions.type === "Meetings"
+                    ? `Number of meetings are between 0 and ${markOptions.totalMarks}`
+                    : `Input is between 0 and ${markOptions.totalMarks}`
+                }
+                placeholder={
+                  markOptions.type === "Meetings"
+                    ? "Enter number of attended meetings"
+                    : "Enter your module mark"
+                }
+              />
+            ))}
+          </Group>
+          <Text size={"md"}>Overall percentage: {calculateModulePercentage(id)}%</Text>
+        </React.Fragment>
+      ))}
+
       <Paper shadow="sm" radius="md" p="md" mt="xl" withBorder>
         <Text size={"lg"} weight={"bold"}>
           Corrected Year 3 Mark: {calculateCorrectedMark(modulePercentages) + "%" || "%"}
