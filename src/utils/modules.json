@@ -369,6 +369,29 @@
           "totalMarks": 100
         }
       ]
+    },
+    
+    {
+      "id": 25,
+      "name": "Development Project",
+      "yearOfModule": 3,
+      "markScheme": [
+        {
+          "type": "First Deliverable",
+          "markWeight": 0.25,
+          "totalMarks": 100
+        },
+        {
+          "type": "Final Deliverable",
+          "markWeight": 0.7,
+          "totalMarks": 100
+        },
+        {
+          "type": "Meetings",
+          "markWeight": 0.05,
+          "totalMarks": 10
+        }
+      ]
     }
   ]
 }
