@@ -8,7 +8,7 @@ interface Marks {
   [moduleId: number]: (number | "")[];
 }
 
-export default function Year2Calc({ selectedCourse }: any) {
+export default function Year2Calc({ selectedCourse, onCorrectedMarkChange }: any) {
   const [marks, setMarks] = useState<Marks>({});
   const [modulePercentages, setModulePercentages] = useState<string[]>([]);
 
@@ -51,7 +51,9 @@ export default function Year2Calc({ selectedCourse }: any) {
         },
       }));
 
-      const percentages = selectedCourseModules.map((module) => calculateModulePercentage(module.id));
+      const percentages = selectedCourseModules.map((module) =>
+        calculateModulePercentage(module.id)
+      );
       setModulePercentages(percentages);
       calculateCorrectedMark(modulePercentages);
     };
@@ -68,7 +70,15 @@ export default function Year2Calc({ selectedCourse }: any) {
 
     if (currentModuleMarks && currentMarkScheme) {
       const weightedAverage = currentMarkScheme.reduce(
-        (accum, { markWeight }, index) => accum + (currentModuleMarks[index] || 0) * markWeight,
+        (accum, { markWeight, totalMarks }, index) => {
+          if (totalMarks === 200) {
+            const input = currentModuleMarks[index] || 0;
+            return accum + (input / 2) * markWeight;
+          } else {
+            const input = currentModuleMarks[index] || 0;
+            return accum + input * markWeight;
+          }
+        },
         0
       );
 
@@ -76,8 +86,12 @@ export default function Year2Calc({ selectedCourse }: any) {
     }
     return "";
   }
-
-  function calculateCorrectedMark(arrayOfPercentages: string[]) {
+  /**
+   * Handles the calculation and returning of a corrected mark.
+   * @param arrayOfPercentages - An array of unmodified percentages from user inputs.
+   * @returns {string} Either a number representing the corrected mark, or a string returning N/A.
+   */
+  function calculateCorrectedMark(arrayOfPercentages: string[]): string {
     if (arrayOfPercentages.length === 8) {
       const percentagesToNum: number[] = arrayOfPercentages.map(Number);
       const sortedPercentages: number[] = [...percentagesToNum].sort((a, b) => a - b);
@@ -87,6 +101,7 @@ export default function Year2Calc({ selectedCourse }: any) {
       const sum: number = sortedPercentages.reduce((total, values) => total + values, 0);
       const mean: number = sum / sortedPercentages.length;
 
+      onCorrectedMarkChange(Math.min(mean, 100).toFixed(2));
       return Math.min(mean, 100).toFixed(2);
     } else {
       return "N/A";
