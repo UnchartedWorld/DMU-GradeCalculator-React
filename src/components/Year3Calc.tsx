@@ -19,6 +19,11 @@ interface Modules {
   }[];
 }
 
+interface PercentageProps {
+  id: number;
+  percentage: string;
+}
+
 export default function Year3Calc({
   selectedTerm1Modules,
   selectedTerm2Modules,
@@ -26,7 +31,7 @@ export default function Year3Calc({
   onCorrectedMarkChange,
 }: any) {
   const [marks, setMarks] = useState<Marks>({});
-  const [modulePercentages, setModulePercentages] = useState<string[]>([]);
+  const [modulePercentages, setModulePercentages] = useState<PercentageProps[]>([]);
 
   const moduleData = modules.modules;
   const receivedDevProject: Modules[] = developmentProject;
@@ -36,6 +41,7 @@ export default function Year3Calc({
   const term2Filtered: Modules[] = moduleData.filter((mod) =>
     selectedTerm2Modules.includes(String(mod.id))
   );
+  const termAndDevModules = term1Filtered.concat(term2Filtered, receivedDevProject);
 
   /**
    * Handles the changing of the grade input field, storing it in a useState variable called marks.
@@ -56,19 +62,14 @@ export default function Year3Calc({
         },
       }));
 
-      if (selectedTerm1Modules) {
-        const percentages = selectedTerm1Modules.map((module: { id: number }) =>
-          calculateModulePercentage(module.id)
-        );
-        setModulePercentages(percentages);
-        calculateCorrectedMark(modulePercentages);
-      } else if (selectedTerm2Modules) {
-        const percentages = selectedTerm2Modules.map((module: { id: number }) =>
-          calculateModulePercentage(module.id)
-        );
-        setModulePercentages(percentages);
-        calculateCorrectedMark(modulePercentages);
-      }
+      setModulePercentages(() => {
+        const newPercentages: PercentageProps[] = termAndDevModules.map((module) => ({
+          id: module.id,
+          percentage: calculateModulePercentage(module.id),
+        }));
+        return newPercentages;
+      });
+      calculateCorrectedMark(modulePercentages);
     };
   }
 
@@ -103,23 +104,47 @@ export default function Year3Calc({
     return "";
   }
 
+  function compareByPercentages(a: PercentageProps, b: PercentageProps) {
+    return parseInt(a.percentage) - parseInt(b.percentage);
+  }
+
   /**
    * Handles the calculation and returning of a corrected mark.
    * @param arrayOfPercentages - An array of unmodified percentages from user inputs.
    * @returns {string} Either a number representing the corrected mark, or a string returning N/A.
    */
-  function calculateCorrectedMark(arrayOfPercentages: string[]): string {
-    if (arrayOfPercentages.length === 8) {
-      const percentagesToNum: number[] = arrayOfPercentages.map(Number);
-      const sortedPercentages: number[] = [...percentagesToNum].sort((a, b) => a - b);
 
-      sortedPercentages.shift();
+  function calculateCorrectedMark(arrayOfPercentages: PercentageProps[]): string {
+    if (arrayOfPercentages.length === 7) {
+      const slicedAndSortedPercentages: PercentageProps[] = modulePercentages
+        .slice()
+        .sort(compareByPercentages);
 
-      const sum: number = sortedPercentages.reduce((total, values) => total + values, 0);
-      const mean: number = sum / sortedPercentages.length;
+      if (slicedAndSortedPercentages[0].id !== receivedDevProject[0].id) {
+        const sum: number = slicedAndSortedPercentages.reduce(
+          (total, values) => total + parseInt(values.percentage),
+          0
+        );
+        const mean: number = sum / slicedAndSortedPercentages.length;
 
-      onCorrectedMarkChange(Math.min(mean, 100).toFixed(2));
-      return Math.min(mean, 100).toFixed(2);
+        const correctedMarkResult = Math.min(mean, 100).toFixed(2);
+        onCorrectedMarkChange(correctedMarkResult);
+
+        return correctedMarkResult;
+      } else {
+        slicedAndSortedPercentages.splice(1, 1);
+
+        const sum: number = slicedAndSortedPercentages.reduce(
+          (total, values) => total + parseInt(values.percentage),
+          0
+        );
+        const mean: number = sum / slicedAndSortedPercentages.length;
+
+        const correctedMarkResult = Math.min(mean, 100).toFixed(2);
+        onCorrectedMarkChange(correctedMarkResult);
+
+        return correctedMarkResult;
+      }
     } else {
       return "N/A";
     }
