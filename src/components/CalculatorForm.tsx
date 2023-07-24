@@ -14,6 +14,7 @@ export default function CalculatorForm({ formData }: any) {
 
   const modulesData = modules.modules;
   const coursesData = courses.courses;
+  const developmentProject = modulesData.filter((module) => module.name === "Development Project");
 
   const courseSelectionOptions = coursesData.map((course) => ({
     value: String(course.id),
@@ -21,14 +22,14 @@ export default function CalculatorForm({ formData }: any) {
   }));
 
   const term1ModuleOptions = modulesData
-    .filter((module) => module.termOfModule === 1)
+    .filter((module) => module.termOfModule === 1 && module.yearOfModule === 3)
     .map((module) => ({
       value: String(module.id),
       label: module.name,
     }));
 
   const term2ModuleOptions = modulesData
-    .filter((module) => module.termOfModule === 2)
+    .filter((module) => module.termOfModule === 2 && module.yearOfModule === 3)
     .map((module) => ({
       value: String(module.id),
       label: module.name,
@@ -40,13 +41,19 @@ export default function CalculatorForm({ formData }: any) {
     const term1Modules: string[] = selectedTerm1Modules;
     const term2Modules: string[] = selectedTerm2Modules;
 
-
-    if (year && course) {
+    if (year === "Year 2" && course) {
       formData(year, course);
       setOptionsBooleanStatus(true);
       setMissingFieldsNotif(false);
-    } else if (year && course && term1Modules && term2Modules) {
-      formData(year, course, term1Modules, term2Modules);
+    } else if (
+      year === "Year 3" &&
+      course &&
+      term1Modules &&
+      term2Modules &&
+      term1Modules.length &&
+      term2Modules.length
+    ) {
+      formData(year, course, term1Modules, term2Modules, developmentProject);
       setOptionsBooleanStatus(true);
       setMissingFieldsNotif(false);
     } else {
@@ -81,15 +88,12 @@ export default function CalculatorForm({ formData }: any) {
   return (
     <section>
       {missingFieldsNotif && (
-        <Alert 
-          title="Missing field(s)!" 
-          icon={<IconAlertCircle size={"1.1rem"} />}
-          color="red">
-          It appears you failed to fill in all required fields. Make sure to do so!  
+        <Alert title="Missing field(s)!" icon={<IconAlertCircle size={"1.1rem"} />} color="red">
+          It appears you failed to fill in all required fields. Make sure to do so!
         </Alert>
-        )}
+      )}
       <Stack spacing={"sm"}>
-        <Title order={2}>Calculator form</Title>        
+        <Title order={2}>Calculator form</Title>
         <Select
           data={courseSelectionOptions}
           label="Select your course."
@@ -137,7 +141,9 @@ export default function CalculatorForm({ formData }: any) {
             />
           </Stack>
         )}
-        <Button onClick={handleFormData} disabled={optionsBooleanStatus}>Submit data</Button>
+        <Button onClick={handleFormData} disabled={optionsBooleanStatus}>
+          Submit data
+        </Button>
       </Stack>
     </section>
   );
