@@ -38,7 +38,6 @@ export default function Calculator() {
     setReceivedTerm1Modules(term1Modules);
     setReceivedTerm2Modules(term2Modules);
     setReceivedDevelopmentProject(developmentProject);
-    console.log("Development Project", receivedDevelopmentProject);
   }
 
   function getYear2CorrectedMark(mark: number) {
@@ -48,9 +47,6 @@ export default function Calculator() {
   function getYear3CorrectedMark(mark: number) {
     setYear3CorrectedMark(mark);
   }
-
-  console.log("Year 2 corrected", year2CorrectedMark)
-  console.log("Year 3 corrected", year3CorrectedMark)
 
   function getDegreeMark(secondYearMarks: number, thirdYearMarks: number) {
     if (secondYearMarks && thirdYearMarks) {
