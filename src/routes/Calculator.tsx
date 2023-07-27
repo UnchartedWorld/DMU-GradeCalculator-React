@@ -1,6 +1,6 @@
-import { Container } from "@mantine/core";
+import { Container, Table } from "@mantine/core";
 import CalculatorForm from "../components/CalculatorForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Year2Calc from "../components/Year2Calc";
 import Year3Calc from "../components/Year3Calc";
 
@@ -50,38 +50,82 @@ export default function Calculator() {
 
   function getDegreeMark(secondYearMarks: number, thirdYearMarks: number) {
     if (secondYearMarks && thirdYearMarks) {
-      const overallDegreeMark = (secondYearMarks / 100 * 25) + (thirdYearMarks / 100 * 75);
+      const overallDegreeMark = (secondYearMarks / 100) * 25 + (thirdYearMarks / 100) * 75;
 
-      setDegreeMark(overallDegreeMark);
-    } 
+      if (!Number.isNaN(overallDegreeMark)) {
+        setDegreeMark(overallDegreeMark);
+      } else {
+        setDegreeMark(undefined)
+      }
+    }
   }
 
   function getDegreeClassification(degreeMark: number): string {
     if (degreeMark && degreeMark >= 70) {
-      return "First Class/Distinction"
+      return "First Class/Distinction";
     } else if (degreeMark && degreeMark >= 60) {
-      return "Upper Second Class/Merit"
+      return "Upper Second Class/Merit";
     } else if (degreeMark && degreeMark >= 50) {
-      return "Lower Second Class/Pass"
+      return "Lower Second Class/Pass";
     } else if (degreeMark && degreeMark >= 40) {
-      return "Pass"
+      return "Pass";
+    } else if (degreeMark && degreeMark < 40) {
+      return "Fail";
     } else {
-      return "Fail"
+      return "N/A";
     }
   }
+
+  useEffect(() => {
+    if (year2CorrectedMark && year3CorrectedMark) {
+      getDegreeMark(year2CorrectedMark, year3CorrectedMark);
+    }
+  }, [year2CorrectedMark, year3CorrectedMark]);
 
   return (
     <Container py={"md"} role="region">
       <CalculatorForm formData={receiveFormData} />
-      <Year2Calc selectedCourse={receivedCourse} onCorrectedMarkChange={getYear2CorrectedMark} />
-
+      {receivedYear === "Year 2" && (
+        <Year2Calc selectedCourse={receivedCourse} onCorrectedMarkChange={getYear2CorrectedMark} />
+      )}
       {receivedYear === "Year 3" && (
-        <Year3Calc
-          selectedTerm1Modules={receivedTerm1Modules}
-          selectedTerm2Modules={receivedTerm2Modules}
-          developmentProject={receivedDevelopmentProject}
-          onCorrectedMarkChange={getYear3CorrectedMark}
-        />
+        <>
+          <Year2Calc
+            selectedCourse={receivedCourse}
+            onCorrectedMarkChange={getYear2CorrectedMark}
+          />
+          <Year3Calc
+            selectedTerm1Modules={receivedTerm1Modules}
+            selectedTerm2Modules={receivedTerm2Modules}
+            developmentProject={receivedDevelopmentProject}
+            onCorrectedMarkChange={getYear3CorrectedMark}
+          />
+        </>
+      )}
+      {degreeMark &&  (
+        <Table highlightOnHover withBorder captionSide="bottom" mt="lg">
+          <caption>Table showing the overall degree mark and degree classification</caption>
+          <thead>
+            <tr>
+              <th>Overall Results</th>
+              <th>Mark/Classification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Degree mark</td>
+              <td>
+                <u>{degreeMark.toFixed(2).concat("%") || "N/A"}</u>
+              </td>
+            </tr>
+            <tr>
+              <td>Degree classification</td>
+              <td>
+                <u>{(degreeMark && getDegreeClassification(degreeMark)) || "N/A"}</u>
+              </td>
+            </tr>
+          </tbody>
+        </Table>
       )}
     </Container>
   );
