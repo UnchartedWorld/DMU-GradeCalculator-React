@@ -104,7 +104,13 @@ export default function Year3Calc({
     return "";
   }
 
-  function compareByPercentages(a: PercentageProps, b: PercentageProps) {
+  /**
+   * Sorts PercentageProps arrays in ascending order.
+   * @param a The first percentage value from the desired array
+   * @param b The second percentage value from the desired array.
+   * @returns {number} An ordered list of PercentageProps in ascending order.
+   */
+  function compareByPercentages(a: PercentageProps, b: PercentageProps): number {
     return parseInt(a.percentage) - parseInt(b.percentage);
   }
 
