@@ -1,8 +1,10 @@
-import { Container, Table } from "@mantine/core";
+import { Container, List, Modal, Table, Text, ThemeIcon } from "@mantine/core";
 import CalculatorForm from "../components/CalculatorForm";
 import { useEffect, useState } from "react";
 import Year2Calc from "../components/Year2Calc";
 import Year3Calc from "../components/Year3Calc";
+import { useDisclosure } from "@mantine/hooks";
+import { IconAlertCircle } from "@tabler/icons-react";
 
 interface Modules {
   id: number;
@@ -25,6 +27,7 @@ export default function Calculator() {
   const [year2CorrectedMark, setYear2CorrectedMark] = useState<number>();
   const [year3CorrectedMark, setYear3CorrectedMark] = useState<number>();
   const [degreeMark, setDegreeMark] = useState<number>();
+  const [opened, { close }] = useDisclosure(true);
 
   function receiveFormData(
     year: string,
@@ -55,7 +58,7 @@ export default function Calculator() {
       if (!Number.isNaN(overallDegreeMark)) {
         setDegreeMark(overallDegreeMark);
       } else {
-        setDegreeMark(undefined)
+        setDegreeMark(undefined);
       }
     }
   }
@@ -84,6 +87,36 @@ export default function Calculator() {
 
   return (
     <Container py={"md"} role="region">
+      <Modal
+        opened={opened}
+        onClose={close}
+        title="Advice and tips"
+        transitionProps={{ transition: "pop" }}
+        centered
+        size={"auto"}
+      >
+        <Text pb={"sm"}>Here are a few tips and tricks when using this calculator: </Text>
+        <List icon=
+        {<ThemeIcon size={20} radius={"xl"}>
+          <IconAlertCircle size={"1rem"}/>
+        </ThemeIcon>}>
+          <List.Item>You can search for your course and/or modules with text inputs.</List.Item>
+          <List.Item>
+            You can select and remove your year 3 module choices before submitting. <b>Remember: you
+            must choose 3 modules per term</b>.
+          </List.Item>
+          <List.Item>At the end of each year section, you'll get your corrected mark.</List.Item>
+          <List.Item>
+            If you selected Year 3, you'll get your degree classification at the end after
+            submitting all your marks.
+          </List.Item>
+        </List>
+        <Text pt={"sm"}>
+          Finally, remember that <b>once you submit your form choices</b>, you cannot change them. You'll
+          need to refresh the page and start all over.
+        </Text>
+      </Modal>
+
       <CalculatorForm formData={receiveFormData} />
       {receivedYear === "Year 2" && (
         <Year2Calc selectedCourse={receivedCourse} onCorrectedMarkChange={getYear2CorrectedMark} />
@@ -102,7 +135,7 @@ export default function Calculator() {
           />
         </>
       )}
-      {degreeMark &&  (
+      {degreeMark && (
         <Table highlightOnHover withBorder captionSide="bottom" mt="lg">
           <caption>Table showing the overall degree mark and degree classification</caption>
           <thead>
