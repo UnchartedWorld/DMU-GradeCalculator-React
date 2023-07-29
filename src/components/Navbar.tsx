@@ -11,7 +11,7 @@ import {
   Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DarkLightButton } from "./DarkLightButton";
 
 const HEADER_HEIGHT = rem(60);
@@ -63,18 +63,12 @@ const useStyles = createStyles((theme) => ({
     padding: `${rem(8)} ${rem(12)}`,
     borderRadius: theme.radius.sm,
     textDecoration: "none",
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[0]
-        : theme.colors.gray[7],
+    color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.colors.gray[7],
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
 
     "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[6]
-          : theme.colors.gray[0],
+      backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
     },
 
     [theme.fn.smallerThan("sm")]: {
@@ -89,8 +83,7 @@ const useStyles = createStyles((theme) => ({
         variant: "light",
         color: theme.primaryColor,
       }).background,
-      color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
-        .color,
+      color: theme.fn.variant({ variant: "light", color: theme.primaryColor }).color,
     },
   },
 }));
@@ -133,25 +126,32 @@ export function Navbar() {
   return (
     <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
       <Container className={classes.header}>
-        <Text size={28}>Placeholder</Text>
+        <Text weight={"bold"} size={20}>
+          <Link
+            to={"/home"}
+            onClick={(event) => {
+              event.preventDefault();
+              setActive("/home");
+              navigateTo("/home");
+              close();
+            }}
+          style={{textDecoration: "none", color: "inherit"}}
+          >
+            DMU Grade Calculator
+          </Link>
+        </Text>
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
-        <DarkLightButton/>        
+        <DarkLightButton />
 
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          className={classes.burger}
-          size="sm"
-        />
+        <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
 
         <Transition transition="pop-top-right" duration={200} mounted={opened}>
           {(styles) => (
             <Paper className={classes.dropdown} withBorder style={styles}>
               {items}
             </Paper>
-            
           )}
         </Transition>
       </Container>

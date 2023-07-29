@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <Container py={"md"} role="region">
+    <Container py={"md"} size={800} role="region">
       <Title
         id="homeTitle"
         variant="gradient"
@@ -14,18 +14,18 @@ export default function Home() {
       >
         Calculate your grade!
       </Title>
-      <Text sx={{ paddingTop: "1rem" }} ta={"center"}>
-        Did you start your course in 2020/2021? Use this calculator to discover
-        what your predicted grade is likely to be. If you're in another year
-        group, feel free to make some suggestions via an issue on how best to
-        implement alternate grading.
+      <Text mt={"md"} ta={"center"}>
+        Did you start your course in 2020/2021? Use this calculator to discover what your predicted
+        grade is likely to be. If you're in another year group, feel free to make some suggestions
+        via an issue on how best to implement alternate grading.
+      </Text>
+      <Text mt={"xs"} ta={"center"}>
+        If you're curious about the website or have any general queries, check out the About page,
+        as it may clarify a few things for you.
       </Text>
 
-      <Button mt={"1rem"}>
-        <Link
-          style={{ textDecoration: "none", color: "inherit" }}
-          to={"/calculator"}
-        >
+      <Button mt={"md"} style={{ display: "block", marginLeft: "auto", marginRight: "auto" }}>
+        <Link style={{ textDecoration: "none", color: "inherit" }} to={"/calculator"}>
           Get started!
         </Link>
       </Button>
