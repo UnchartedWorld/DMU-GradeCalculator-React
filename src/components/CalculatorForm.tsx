@@ -142,7 +142,7 @@ export default function CalculatorForm({ formData }: any) {
           </Stack>
         )}
         <Button onClick={handleFormData} disabled={optionsBooleanStatus}>
-          Submit data
+          Submit form data
         </Button>
       </Stack>
     </section>
