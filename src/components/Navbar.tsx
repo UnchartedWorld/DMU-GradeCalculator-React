@@ -94,6 +94,10 @@ const links = [
     label: "Home",
   },
   {
+    link: "/calculator",
+    label: "Calculator"
+  },
+  {
     link: "/about",
     label: "About",
   },
