@@ -1,8 +1,9 @@
-import { NumberInput, Title, Text, Group, Paper } from "@mantine/core";
+import { NumberInput, Title, Text, Group, Paper, Accordion, rem } from "@mantine/core";
 
 import courses from "../utils/courses.json";
 import modules from "../utils/modules.json";
 import React, { useState } from "react";
+import { IconBulb } from "@tabler/icons-react";
 
 interface Marks {
   [moduleId: number]: (number | "")[];
@@ -135,6 +136,17 @@ export default function Year2Calc({ selectedCourse, onCorrectedMarkChange }: any
           Corrected Year 2 Mark: {calculateCorrectedMark(modulePercentages) + "%" || "%"}
         </Text>
       </Paper>
+      <Accordion mt={"md"} variant="contained" defaultValue={"What is a corrected mark year 2?"}>
+        <Accordion.Item value="What is a corrected mark year 2?">
+          <Accordion.Control icon={<IconBulb size={rem(20)} />}>
+            What is a corrected mark?
+          </Accordion.Control>
+          <Accordion.Panel>
+            Corrected marks are taken from the provided percentages from each year's module. Then,
+            after the lowest is deducted, it takes the remaining values and finds the mean of them.
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Accordion>
     </section>
   );
 }

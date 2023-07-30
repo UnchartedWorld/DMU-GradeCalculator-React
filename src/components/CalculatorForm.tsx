@@ -1,8 +1,8 @@
 import { useState } from "react";
 import courses from "../utils/courses.json";
 import modules from "../utils/modules.json";
-import { Alert, Button, MultiSelect, Select, Stack, Title } from "@mantine/core";
-import { IconAlertCircle } from "@tabler/icons-react";
+import { Accordion, Alert, Button, MultiSelect, Select, Stack, Text, Title, rem } from "@mantine/core";
+import { IconAlertCircle, IconBulb } from "@tabler/icons-react";
 
 export default function CalculatorForm({ formData }: any) {
   const [selectedYear, setSelectedYear] = useState<string>("");
@@ -104,6 +104,14 @@ export default function CalculatorForm({ formData }: any) {
           required
           disabled={optionsBooleanStatus}
         />
+        <Accordion variant="contained" defaultValue={"Search for your course"}>
+          <Accordion.Item value={"Search for your course"}>
+            <Accordion.Control icon={<IconBulb size={rem(20)} />}>Search for your course</Accordion.Control>
+            <Accordion.Panel>
+              You can search for your course and/or modules with text inputs.
+            </Accordion.Panel>
+          </Accordion.Item>
+        </Accordion>
 
         <Select
           data={["Year 2", "Year 3"]}
@@ -139,11 +147,23 @@ export default function CalculatorForm({ formData }: any) {
               required
               disabled={optionsBooleanStatus}
             />
+            <Accordion variant="contained" defaultValue={"Maximum of 3"}>
+              <Accordion.Item value={"Maximum of 3"}>
+                <Accordion.Control icon={<IconBulb size={rem(20)} />}>Only select 3 modules per term</Accordion.Control>
+                <Accordion.Panel>
+                  You can select and remove your year 3 module choices before submitting.{" "}
+                  <b>Remember: you must choose 3 modules per term</b>.
+                </Accordion.Panel>
+              </Accordion.Item>
+            </Accordion>
           </Stack>
         )}
         <Button onClick={handleFormData} disabled={optionsBooleanStatus}>
           Submit form data
         </Button>
+        <Text c={"dimmed"}>
+          Once you hit submit, you cannot change or resubmit values without refreshing.
+        </Text>
       </Stack>
     </section>
   );
