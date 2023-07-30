@@ -1,10 +1,9 @@
-import { Container, List, Modal, Table, Text, ThemeIcon } from "@mantine/core";
+import { Accordion, Container, Table, rem } from "@mantine/core";
 import CalculatorForm from "../components/CalculatorForm";
 import { useEffect, useState } from "react";
 import Year2Calc from "../components/Year2Calc";
 import Year3Calc from "../components/Year3Calc";
-import { useDisclosure } from "@mantine/hooks";
-import { IconAlertCircle } from "@tabler/icons-react";
+import { IconBulb } from "@tabler/icons-react";
 
 interface Modules {
   id: number;
@@ -27,7 +26,6 @@ export default function Calculator() {
   const [year2CorrectedMark, setYear2CorrectedMark] = useState<number>();
   const [year3CorrectedMark, setYear3CorrectedMark] = useState<number>();
   const [degreeMark, setDegreeMark] = useState<number>();
-  const [opened, { close }] = useDisclosure(true);
 
   function receiveFormData(
     year: string,
@@ -87,36 +85,6 @@ export default function Calculator() {
 
   return (
     <Container py={"md"} role="region">
-      <Modal
-        opened={opened}
-        onClose={close}
-        title="Advice and tips"
-        transitionProps={{ transition: "pop" }}
-        centered
-        size={"auto"}
-      >
-        <Text pb={"sm"}>Here are a few tips and tricks when using this calculator: </Text>
-        <List icon=
-        {<ThemeIcon size={20} radius={"xl"}>
-          <IconAlertCircle size={"1rem"}/>
-        </ThemeIcon>}>
-          <List.Item>You can search for your course and/or modules with text inputs.</List.Item>
-          <List.Item>
-            You can select and remove your year 3 module choices before submitting. <b>Remember: you
-            must choose 3 modules per term</b>.
-          </List.Item>
-          <List.Item>At the end of each year section, you'll get your corrected mark.</List.Item>
-          <List.Item>
-            If you selected Year 3, you'll get your degree classification at the end after
-            submitting all your marks.
-          </List.Item>
-        </List>
-        <Text pt={"sm"}>
-          Finally, remember that <b>once you submit your form choices</b>, you cannot change them. You'll
-          need to refresh the page and start all over.
-        </Text>
-      </Modal>
-
       <CalculatorForm formData={receiveFormData} />
       {receivedYear === "Year 2" && (
         <Year2Calc selectedCourse={receivedCourse} onCorrectedMarkChange={getYear2CorrectedMark} />
@@ -136,29 +104,43 @@ export default function Calculator() {
         </>
       )}
       {degreeMark && (
-        <Table highlightOnHover withBorder captionSide="bottom" mt="lg">
-          <caption>Table showing the overall degree mark and degree classification</caption>
-          <thead>
-            <tr>
-              <th>Overall Results</th>
-              <th>Mark/Classification</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Degree mark</td>
-              <td>
-                <u>{degreeMark.toFixed(2).concat("%") || "N/A"}</u>
-              </td>
-            </tr>
-            <tr>
-              <td>Degree classification</td>
-              <td>
-                <u>{(degreeMark && getDegreeClassification(degreeMark)) || "N/A"}</u>
-              </td>
-            </tr>
-          </tbody>
-        </Table>
+        <>
+          <Table highlightOnHover withBorder captionSide="bottom" mt="lg">
+            <caption>Table showing the overall degree mark and degree classification</caption>
+            <thead>
+              <tr>
+                <th>Overall Results</th>
+                <th>Mark/Classification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Degree mark</td>
+                <td>
+                  <u>{degreeMark.toFixed(2).concat("%") || "N/A"}</u>
+                </td>
+              </tr>
+              <tr>
+                <td>Degree classification</td>
+                <td>
+                  <u>{(degreeMark && getDegreeClassification(degreeMark)) || "N/A"}</u>
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+          <Accordion mt={"md"} variant="contained" defaultValue={"Explanation of Classification"}>
+            <Accordion.Item value="Explanation of classification">
+              <Accordion.Control icon={<IconBulb size={rem(20)} />}>
+                How are the classifications calculated?
+              </Accordion.Control>
+              <Accordion.Panel>
+                Your classification is calculated as such: (2nd Year Overall Mark / 100) * 25 + (3rd
+                Year Overall Mark / 100) * 75. The result of this will be between 0 and 100, and
+                will return either a classification, Fail or "N/A" in the case of unusual values.
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </>
       )}
     </Container>
   );
